@@ -1,7 +1,11 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import BarraProgreso from "../../components/BarraProgreso";
-import { porcentajeActasProcesadas } from "../../data/intencion";
+import BarraVoto from "../../components/BarraVoto";
+import {
+  intencionVoto,
+  porcentajeActasProcesadas,
+} from "../../data/intencion";
 
 export default function EstadisticasScreen() {
   return (
@@ -29,6 +33,14 @@ export default function EstadisticasScreen() {
 
         <BarraProgreso porcentaje={porcentajeActasProcesadas} />
       </View>
+
+        <View style={[styles.tarjeta, styles.tarjetaResultados]}>
+        <Text style={styles.tarjetaTitulo}>Intención de voto</Text>
+
+        {intencionVoto.map((opcion) => (
+        <BarraVoto key={opcion.id} opcion={opcion} />
+        ))}
+        </View>
     </ScrollView>
   );
 }
@@ -92,4 +104,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     marginBottom: 16,
   },
+
+  tarjetaResultados: {
+  marginTop: 20,
+},
 });
