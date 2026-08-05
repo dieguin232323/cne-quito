@@ -1,56 +1,89 @@
-# Welcome to your Expo app 👋
+# App CNE Quito — Elecciones Seccionales 2027
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Autor:** Diego Alejandro Chicaiza Quimi — Desarrollador 1 (Líder de Infraestructura y Navegación)
+**Asignatura:** Dispositivos Móviles — Universidad Central del Ecuador
+**Docente:** Ing. Diego Noguera
+**Año:** Quito, agosto de 2026
 
-## Get started
+## Aviso de datos ficticios
 
-1. Install dependencies
+Todos los datos, candidatos, movimientos políticos, porcentajes y resultados usados en esta aplicación son **FICTICIOS** y de uso exclusivamente académico. No representan a personas, organizaciones ni procesos electorales reales. La aplicación **no debe publicarse en tiendas ni difundirse fuera del aula**.
 
-   ```bash
-   npm install
-   ```
+## Stack técnico
 
-2. Start the app
+| Elemento | Versión |
+| --- | --- |
+| Framework | Expo SDK 57 (React Native 0.86.2, React 19.2.3) |
+| Runtime | Node.js LTS 24.19.0 |
+| Ejecución | Expo Go en teléfono físico |
+| Navegación | expo-router 57 (bottom tabs) |
+| Iconos | @expo/vector-icons (Ionicons) |
+| Lenguaje | TypeScript (TSX) |
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Instalación y ejecución
 
 ```bash
-npm run reset-project
+# 1. Instalar dependencias
+npm install
+
+# 2. Levantar el bundler (leer el QR con Expo Go)
+npx expo start
+
+# 3. Si el teléfono y el PC están en redes distintas
+npx expo start --tunnel
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Diagnóstico rápido: `npx expo-doctor` · limpiar caché: `npx expo start -c`
 
-### Other setup steps
+## Estructura de carpetas
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```
+cne-quito/
+  app/
+    _layout.tsx              Stack raiz (Tema 2)
+    index.tsx                Splash Screen del CNE (Tema 2)
+    (tabs)/
+      _layout.tsx            Barra inferior de 3 pestanas (Tema 3)
+      home.tsx               Pestana Home (Tema 4)
+      candidatos.tsx         Pestana Candidatos (Tema 6)
+      estadisticas.tsx       Pestana Estadisticas (Tema 7)
+  components/                Componentes reutilizables (Tema 4+)
+  data/                      Datos ficticios (Tema 6+)
+  services/                  Consumo de datos remotos (Tema 8)
+  db/                        SQLite local (Tema 8)
+  theme/colors.ts            Paleta institucional
+  assets/logo-cne.png        Logo del CNE
+```
 
-## Learn more
+## Tabla criterio del examen -> archivo
 
-To learn more about developing your project with Expo, look at the following resources:
+| Criterio | Descripcion | Archivo donde se cumple | Estado |
+| --- | --- | --- | --- |
+| 1 | Splash con logo, indicador de carga y paso automatico al Home | `app/index.tsx`, `app/_layout.tsx`, `app.json` | Completado (Tema 2) |
+| 2 | Barra inferior con 3 pestanas navegando | `app/(tabs)/_layout.tsx` | Completado (Tema 3) |
+| 3 | Home: bienvenida, resumen y donde votar | `app/(tabs)/home.tsx` + `components/` | Pendiente (Tema 4-5) |
+| 4 | Min. 3 candidatos con imagen y propuesta | `app/(tabs)/candidatos.tsx` + `components/CandidatoCard.tsx` | Pendiente (Tema 6) |
+| 5 | Diagrama de barras de intencion de voto y lider | `app/(tabs)/estadisticas.tsx` + `data/intencion.ts` | Pendiente (Tema 7) |
+| 6 | Componentes reutilizados y organizacion | `components/`, `data/`, `theme/` | En construccion (Temas 4-8) |
+| 7 | Repositorio, commits y README | `README.md`, git | Pendiente (Tema 8) |
+| 8 | Correo con enlace y PDF | — | Pendiente (Tema 8) |
+| 9 | Defensa en Expo Go | — | Pendiente (Tema 8) |
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Capturas de pantalla
 
-## Join the community
+> Se agregan las capturas reales tomadas en el telefono al avanzar los temas.
 
-Join our community of developers creating universal apps.
+- **Splash:** `assets/capturas/splash.png`
+- **Home:** `assets/capturas/home.png`
+- **Candidatos:** `assets/capturas/candidatos.png`
+- **Estadisticas:** `assets/capturas/estadisticas.png`
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Capturas de Pantalla
+
+| Splash | Home |
+| :-: | :-: |
+| ![Splash](assets/capturas/Splash.jpeg) | ![Home](assets/capturas/Home.jpeg) |
+
+| Candidatos | Estadísticas |
+| :-: | :-: |
+| ![Candidatos](assets/capturas/Candidatos.jpeg) | ![Estadísticas](assets/capturas/Estadísticas.jpeg) |
