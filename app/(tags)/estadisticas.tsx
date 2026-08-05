@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 import BarraProgreso from "../../components/BarraProgreso";
 import { BarChart } from "react-native-gifted-charts";
@@ -8,6 +14,10 @@ import {
 } from "../../data/intencion";
 
 export default function EstadisticasScreen() {
+
+    const { width } = useWindowDimensions();
+    const anchoGrafico = Math.max(width - 76, 280);
+    const pantallaPequena = width < 380;
 
     const candidatos = intencionVoto.filter((opcion) => opcion.esCandidato);
 
@@ -84,8 +94,6 @@ export default function EstadisticasScreen() {
             maxValue={50}
             noOfSections={5}
             stepValue={10}
-            barWidth={28}
-            spacing={22}
             initialSpacing={10}
             barBorderTopLeftRadius={6}
             barBorderTopRightRadius={6}
@@ -96,7 +104,9 @@ export default function EstadisticasScreen() {
             rulesColor="#E5E5E8"
             labelWidth={58}
             xAxisLabelTextStyle={styles.textoEjeX}
-            disableScroll
+            width={anchoGrafico}
+            barWidth={pantallaPequena ? 24 : 28}
+            spacing={pantallaPequena ? 18 : 22}
             />
         </View>
     </ScrollView>
