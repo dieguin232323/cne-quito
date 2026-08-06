@@ -1,9 +1,64 @@
-import React from "react";
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import CandidatoCard from "../../components/CandidatoCard";
-import { candidatos } from "../../data/candidatos";
+import { Candidato } from "../../data/candidatos";
+import { obtenerCandidatos } from "../../services/candidatosApi";
 
 export default function Candidatos() {
+  const [candidatos, setCandidatos] = useState<Candidato[]>([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const cargarCandidatos = useCallback(async () => {
+    setCargando(true);
+    setError(null);
+
+    try {
+      const datos = await obtenerCandidatos();
+      setCandidatos(datos);
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "No se pudieron cargar los candidatos."
+      );
+    } finally {
+      setCargando(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    cargarCandidatos();
+  }, [cargarCandidatos]);
+
+  if (cargando) {
+    return (
+      <View style={s.centro}>
+        <ActivityIndicator size="large" color="#C4006B" />
+        <Text style={s.mensaje}>Cargando candidatos...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={s.centro}>
+        <Text style={s.error}>{error}</Text>
+
+        <Pressable style={s.boton} onPress={cargarCandidatos}>
+          <Text style={s.botonTexto}>Reintentar</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <FlatList
       style={s.lista}
@@ -14,10 +69,14 @@ export default function Candidatos() {
       ListHeaderComponent={
         <View style={s.head}>
           <Text style={s.h1}>Candidatos</Text>
-          <Text style={s.h2}>Alcaldía de Quito - {candidatos.length} inscritos</Text>
+          <Text style={s.h2}>
+            Alcaldía de Quito - {candidatos.length} inscritos
+          </Text>
         </View>
       }
-      ListEmptyComponent={<Text style={s.vacio}>No hay candidatos registrados.</Text>}
+      ListEmptyComponent={
+        <Text style={s.vacio}>No hay candidatos registrados.</Text>
+      }
       renderItem={({ item }) => <CandidatoCard candidato={item} />}
       ListFooterComponent={
         <Text style={s.nota}>Datos ficticios de uso académico.</Text>
@@ -34,6 +93,32 @@ const s = StyleSheet.create({
   cont: {
     padding: 16,
     paddingBottom: 32,
+  },
+  centro: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F7F7FB",
+    padding: 24,
+  },
+  mensaje: {
+    color: "#6B6B7B",
+    marginTop: 12,
+  },
+  error: {
+    color: "#B00020",
+    textAlign: "center",
+    marginBottom: 16,
+  },
+  boton: {
+    backgroundColor: "#C4006B",
+    borderRadius: 8,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+  },
+  botonTexto: {
+    color: "#FFFFFF",
+    fontWeight: "700",
   },
   sep: {
     height: 12,
