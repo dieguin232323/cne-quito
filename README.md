@@ -160,6 +160,10 @@ Pruebas funcionales realizadas en Android:
 | :---: | :---: |
 | ![Listado de candidatos](assets/capturas/Candidatos.jpeg) | ![Estadísticas electorales](assets/capturas/Estadísticas.jpeg) |
 
+| Home | Candidatos |
+| :---: | :---: |
+| ![Home Completo](assets/capturas/HomeCompleto.jpeg) | ![Candidatos Completo](assets/capturas/HomeCompleto.jpeg) |
+
 ## Licencia
 
 Este repositorio se distribuye bajo los términos incluidos en [LICENSE](LICENSE).
