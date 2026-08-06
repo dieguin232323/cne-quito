@@ -122,7 +122,7 @@ cne-quito/
 | --- | --- | :---: |
 | Splash con logotipo, carga y redirección automática | `app/index.tsx`, `app/_layout.tsx`, `app.json` | ✅ Completado |
 | Navegación inferior entre pantallas | `app/(tags)/_layout.tsx` | ✅ Completado |
-| Home con bienvenida, resumen y lugar de votación | `app/(tags)/home.tsx`, `components/Bienvenida.tsx`, `components/ResumenProceso.tsx`, `components/DondeVotar.tsx` | ⏳ Pendiente |
+| Home con bienvenida, resumen y lugar de votación | `app/(tags)/home.tsx`, `components/Bienvenida.tsx`, `components/ResumenProceso.tsx`, `components/DondeVotar.tsx` | ✅ Completado |
 | Listado de al menos tres candidatos con imagen y propuesta | `app/(tags)/candidatos.tsx`, `components/CandidatoCard.tsx` | ✅ Completado |
 | Gráfico de intención de voto y cálculo del líder | `app/(tags)/estadisticas.tsx`, `components/BarraProgreso.tsx`, `data/intencion.ts` | ✅ Completado |
 | Consumo de API con carga, error y reintento | `services/candidatosApi.ts`, `services/candidatosRepository.ts`, `app/(tags)/candidatos.tsx` | ✅ Completado |
@@ -159,6 +159,10 @@ Pruebas funcionales realizadas en Android:
 | Candidatos | Estadísticas |
 | :---: | :---: |
 | ![Listado de candidatos](assets/capturas/Candidatos.jpeg) | ![Estadísticas electorales](assets/capturas/Estadísticas.jpeg) |
+
+| Home | Candidatos |
+| :---: | :---: |
+| ![Home Completo](assets/capturas/HomeCompleto.jpeg) | ![Candidatos Completo]() |
 
 ## Licencia
 
