@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export interface Candidato {
   id: string;
   nombre: string;
@@ -10,7 +12,7 @@ export interface Candidato {
   propuesta: string;
   ejesCampana: string[];
   color: string;
-  foto: any;
+  foto: string | ImageSourcePropType;
 }
 
 export const candidatos: Candidato[] = [
