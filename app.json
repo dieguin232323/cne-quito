@@ -32,7 +32,8 @@
           "image": "./assets/images/cne-logo.png",
           "imageWidth": 76
         }
-      ]
+      ],
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true,
