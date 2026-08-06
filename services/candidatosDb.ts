@@ -1,37 +1,11 @@
-import * as SQLite from "expo-sqlite";
+import {
+  inicializarBaseDatos as inicializarDbCompartida,
+  obtenerBaseDatos,
+} from "./baseDatos";
 import type { Candidato } from "../data/candidatos";
 
-let baseDatosPromise: Promise<SQLite.SQLiteDatabase> | null = null;
-
-async function obtenerBaseDatos(): Promise<SQLite.SQLiteDatabase> {
-  if (!baseDatosPromise) {
-    baseDatosPromise = SQLite.openDatabaseAsync("cne.db");
-  }
-
-  return baseDatosPromise;
-}
-
 export async function inicializarBaseDatos(): Promise<void> {
-  const db = await obtenerBaseDatos();
-
-  await db.execAsync(`
-    PRAGMA journal_mode = WAL;
-
-    CREATE TABLE IF NOT EXISTS candidatos (
-      id TEXT PRIMARY KEY NOT NULL,
-      nombre TEXT NOT NULL,
-      iniciales TEXT NOT NULL,
-      movimiento TEXT NOT NULL,
-      dignidad TEXT NOT NULL,
-      edad INTEGER NOT NULL,
-      profesion TEXT NOT NULL,
-      binomio TEXT NOT NULL,
-      propuesta TEXT NOT NULL,
-      ejes_campana TEXT NOT NULL,
-      color TEXT NOT NULL,
-      foto TEXT NOT NULL
-    );
-  `);
+  await inicializarDbCompartida();
 }
 
 interface CandidatoFila {

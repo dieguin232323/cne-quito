@@ -1,4 +1,7 @@
-import * as SQLite from "expo-sqlite";
+import {
+  inicializarBaseDatos,
+  obtenerBaseDatos,
+} from "./baseDatos";
 
 export interface Recordatorio {
   id: number;
@@ -10,30 +13,8 @@ export interface Recordatorio {
 
 export type NuevoRecordatorio = Omit<Recordatorio, "id">;
 
-let baseDatosPromise: Promise<SQLite.SQLiteDatabase> | null = null;
-
-async function obtenerBaseDatos(): Promise<SQLite.SQLiteDatabase> {
-  if (!baseDatosPromise) {
-    baseDatosPromise = SQLite.openDatabaseAsync("cne.db");
-  }
-
-  return baseDatosPromise;
-}
-
 export async function inicializarRecordatoriosDb(): Promise<void> {
-  const db = await obtenerBaseDatos();
-
-  await db.execAsync(`
-    PRAGMA journal_mode = WAL;
-
-    CREATE TABLE IF NOT EXISTS recordatorios (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      titulo TEXT NOT NULL,
-      descripcion TEXT NOT NULL,
-      fecha TEXT NOT NULL,
-      hora TEXT NOT NULL
-    );
-  `);
+  await inicializarBaseDatos();
 }
 
 export async function crearRecordatorio(
