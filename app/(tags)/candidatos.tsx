@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import CandidatoCard from "../../components/CandidatoCard";
 import { Candidato } from "../../data/candidatos";
-import { obtenerCandidatos } from "../../services/candidatosApi";
+import { cargarCandidatos as cargarCandidatosRepository } from "../../services/candidatosRepository";
 
 export default function Candidatos() {
   const [candidatos, setCandidatos] = useState<Candidato[]>([]);
@@ -21,7 +21,7 @@ export default function Candidatos() {
     setError(null);
 
     try {
-      const datos = await obtenerCandidatos();
+      const datos = await cargarCandidatosRepository();
       setCandidatos(datos);
     } catch (error) {
       setError(
