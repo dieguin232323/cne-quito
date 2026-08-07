@@ -34,5 +34,23 @@
     ],
     "color": "#3B1E6E",
     "foto": "https://raw.githubusercontent.com/dieguin232323/cne-quito/main/assets/images/candidato2.png"
+  },
+  {
+    "id": "c3",
+    "nombre": "Sofia Andrade",
+    "iniciales": "SA",
+    "movimiento": "Red de Voces Locales",
+    "dignidad": "Alcaldía de Quito",
+    "edad": 39,
+    "profesion": "Socióloga y Especialista en Políticas Públicas",
+    "binomio": "Dra. Valeria Espinoza",
+    "propuesta": "Centros de cuidado infantil de jornada extendida en cada administración zonal para apoyar a familias trabajadoras y dinamizar la economía local.",
+    "ejesCampana": [
+      "Centros de Cuidado Infantil Zonal",
+      "Autonomía Económica para Mujeres",
+      "Espacios Públicos Seguros e Inclusivos"
+    ],
+    "color": "#009B8E",
+    "foto": "https://raw.githubusercontent.com/dieguin232323/cne-quito/main/assets/images/candidato3.png"
   }
 ]
