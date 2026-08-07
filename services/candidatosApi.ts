@@ -4,6 +4,8 @@ const API_URL =
   process.env.EXPO_PUBLIC_CANDIDATOS_API_URL ??
   "https://raw.githubusercontent.com/dieguin232323/cne-quito/main/api/candidatos.json";
 
+const TIMEOUT_MS = 10000;
+
 function esCandidato(valor: unknown): valor is Candidato {
   if (!valor || typeof valor !== "object") {
     return false;
