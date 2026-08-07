@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View, Text, Pressable } from "react-native";
+import { ScrollView, StyleSheet, View, Text, Pressable, Linking, Platform } from "react-native";
 import { useState } from "react";
 import Bienvenida from "../../components/Bienvenida";
 import ResumenProceso from "../../components/ResumenProceso";
@@ -8,6 +8,15 @@ import { recintos } from "../../data/recintos";
  
 export default function Home() {
   const [recintoSeleccionado, setRecintoSeleccionado] = useState(recintos[0]);
+
+  const handleVerMapa = () => {
+    const url =
+      Platform.OS === "ios"
+        ? `maps://?q=${recintoSeleccionado.lat},${recintoSeleccionado.lng}`
+        : `https://www.google.com/maps/search/?api=1&query=${recintoSeleccionado.lat},${recintoSeleccionado.lng}`;
+
+    Linking.openURL(url);
+  };
  
   return (
     <ScrollView style={s.scroll} contentContainerStyle={s.cont}>
@@ -33,7 +42,7 @@ export default function Home() {
         ))}
       </View>
 
-      <DondeVotar recinto={recintoSeleccionado} />
+      <DondeVotar recinto={recintoSeleccionado} onVerMas={handleVerMapa} />
     </ScrollView>
   );
 }
