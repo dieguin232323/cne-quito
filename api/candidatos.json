@@ -3,7 +3,7 @@
     "id": "c1",
     "nombre": "Ana Cevallos",
     "iniciales": "AC",
-    "movimiento": "Movimiento Vía Ciudadana",
+    "movimiento": "Movimiento Vía Ciudadana (Lista 100)",
     "dignidad": "Alcaldía de Quito",
     "edad": 38,
     "profesion": "Ingeniera en Transporte y Urbanismo",
@@ -15,13 +15,13 @@
       "Infraestructura Verde y Ciclovías"
     ],
     "color": "#C4006B",
-    "foto": "/assets/images/candidato1.png"
+    "foto": "https://raw.githubusercontent.com/dieguin232323/cne-quito/main/assets/images/candidato1.png"
   },
   {
     "id": "c2",
-    "nombre": "Marco Villalva",
+    "nombre": "Marco Villava",
     "iniciales": "MV",
-    "movimiento": "Frente Unido Andino",
+    "movimiento": "Frente Unido Andino (Lista 200)",
     "dignidad": "Alcaldía de Quito",
     "edad": 46,
     "profesion": "Ingeniero Civil y Ambiental",
@@ -33,24 +33,6 @@
       "Sostenibilidad Ambiental Barrial"
     ],
     "color": "#3B1E6E",
-    "foto": "/assets/images/candidato2.png"
-  },
-  {
-    "id": "c3",
-    "nombre": "Sofia Andrade",
-    "iniciales": "SA",
-    "movimiento": "Red de Voces Locales",
-    "dignidad": "Alcaldía de Quito",
-    "edad": 42,
-    "profesion": "Socióloga y Magíster en Políticas Públicas",
-    "binomio": "Dra. Patricia Jaramillo",
-    "propuesta": "Construir Centros de Cuidado Infantil y Adulto Mayor con jornada extendida en cada una de las 9 administraciones zonales, impulsando el desarrollo social y laboral de las familias.",
-    "ejesCampana": [
-      "Centros de Cuidado Barrial",
-      "Apoyo a Mujeres y Familias Trabajadoras",
-      "Inclusión Social y Equidad"
-    ],
-    "color": "#009B8E",
-    "foto": "/assets/images/candidato3.png"
+    "foto": "https://raw.githubusercontent.com/dieguin232323/cne-quito/main/assets/images/candidato2.png"
   }
 ]
