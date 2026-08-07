@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 
 import BarraProgreso from "../../components/BarraProgreso";
+import RecordatoriosModal from "../../components/RecordatoriosModal";
 import { BarChart } from "react-native-gifted-charts";
 import {
   intencionVoto,
@@ -24,6 +26,7 @@ export default function EstadisticasScreen() {
 
     const [cargando, setCargando] = useState(true);
 const [mensajeError, setMensajeError] = useState<string | null>(null);
+const [mostrarModalRecordatorios, setMostrarModalRecordatorios] = useState(false);
 
 useEffect(() => {
   const temporizador = setTimeout(() => {
@@ -137,47 +140,53 @@ if (candidatos.length < 2) {
 }));
 
   return (
-    <ScrollView
-      style={styles.contenedor}
-      contentContainerStyle={styles.contenido}
-    >
-      <Text style={styles.titulo}>Estadísticas electorales</Text>
+    <View style={styles.contenedorPrincipal}>
+      <ScrollView
+        style={styles.contenedor}
+        contentContainerStyle={styles.contenido}
+      >
+        <Text style={styles.titulo}>Estadísticas electorales</Text>
 
-      <Text style={styles.subtitulo}>
-        Elecciones Seccionales 2027
-      </Text>
+        <Text style={styles.subtitulo}>Elecciones Seccionales 2027</Text>
 
-      <View style={styles.aviso}>
-        <Text style={styles.avisoTitulo}>Simulacro académico</Text>
+        <Pressable
+          style={styles.botonRecordatorios}
+          onPress={() => setMostrarModalRecordatorios(true)}
+        >
+          <Text style={styles.textoBotonRecordatorios}>Mis recordatorios</Text>
+        </Pressable>
 
-        <Text style={styles.avisoTexto}>
-          Los datos presentados son ficticios y no corresponden a resultados
-          oficiales del CNE.
-        </Text>
-      </View>
+        <View style={styles.aviso}>
+          <Text style={styles.avisoTitulo}>Simulacro académico</Text>
 
-        <View style={styles.tarjetaLider}>
-            <Text style={styles.liderRotulo}>Va ganando</Text>
-
-            <Text style={styles.liderNombre}>
-            {lider.nombre} – {lider.porcentaje.toFixed(1).replace(".", ",")} %
-            </Text>
-
-            <Text style={styles.liderVentaja}>
-            +{ventaja.toFixed(1).replace(".", ",")} puntos sobre {segundo.nombre}
-            </Text>
+          <Text style={styles.avisoTexto}>
+            Los datos presentados son ficticios y no corresponden a resultados
+            oficiales del CNE.
+          </Text>
         </View>
 
-      <View style={styles.tarjeta}>
-        <Text style={styles.tarjetaTitulo}>Avance del procesamiento</Text>
+        <View style={styles.tarjetaLider}>
+          <Text style={styles.liderRotulo}>Va ganando</Text>
 
-        <BarraProgreso porcentaje={porcentajeActasProcesadas} />
-      </View>
+          <Text style={styles.liderNombre}>
+            {lider.nombre} – {lider.porcentaje.toFixed(1).replace(".", ",")} %
+          </Text>
+
+          <Text style={styles.liderVentaja}>
+            +{ventaja.toFixed(1).replace(".", ",")} puntos sobre {segundo.nombre}
+          </Text>
+        </View>
+
+        <View style={styles.tarjeta}>
+          <Text style={styles.tarjetaTitulo}>Avance del procesamiento</Text>
+
+          <BarraProgreso porcentaje={porcentajeActasProcesadas} />
+        </View>
 
         <View style={[styles.tarjeta, styles.tarjetaResultados]}>
-        <Text style={styles.tarjetaTitulo}>Intención de voto</Text>
+          <Text style={styles.tarjetaTitulo}>Intención de voto</Text>
 
-        <BarChart
+          <BarChart
             data={datosGrafico}
             height={220}
             maxValue={50}
@@ -196,13 +205,23 @@ if (candidatos.length < 2) {
             width={anchoGrafico}
             barWidth={pantallaPequena ? 24 : 28}
             spacing={pantallaPequena ? 18 : 22}
-            />
+          />
         </View>
-    </ScrollView>
+      </ScrollView>
+
+      <RecordatoriosModal
+        visible={mostrarModalRecordatorios}
+        onClose={() => setMostrarModalRecordatorios(false)}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  contenedorPrincipal: {
+    flex: 1,
+    backgroundColor: "#F5F5F7",
+  },
   contenedor: {
     flex: 1,
     backgroundColor: "#F5F5F7",
@@ -222,6 +241,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 4,
     marginBottom: 20,
+  },
+  botonRecordatorios: {
+    alignSelf: "flex-start",
+    backgroundColor: "#C4006B",
+    borderRadius: 999,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    marginBottom: 16,
+  },
+  textoBotonRecordatorios: {
+    color: "#FFFFFF",
+    fontWeight: "700",
   },
   aviso: {
     backgroundColor: "#FCE8F2",

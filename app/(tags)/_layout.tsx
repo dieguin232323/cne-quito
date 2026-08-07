@@ -43,19 +43,6 @@ export default function TabsLayout() {
         }}
       />
 
-          <Tabs.Screen
-              name="recordatorios"
-              options={{
-                title: "Recordatorios",
-                tabBarIcon: ({ color, size, focused }) => (
-                  <Ionicons
-                    name={focused ? "calendar" : "calendar-outline"}
-                    size={size}
-                    color={color}
-                  />
-              ),
-            }}
-          />
-    </Tabs>
+        </Tabs>
   );
 }

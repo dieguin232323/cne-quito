@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Alert,
   FlatList,
+  Modal,
   Pressable,
   StyleSheet,
   Text,
@@ -16,9 +17,17 @@ import {
   inicializarRecordatoriosDb,
   listarRecordatorios,
   type Recordatorio,
-} from "../../services/recordatoriosDb";
+} from "../services/recordatoriosDb";
 
-export default function RecordatoriosScreen() {
+type RecordatoriosModalProps = {
+  visible: boolean;
+  onClose: () => void;
+};
+
+export default function RecordatoriosModal({
+  visible,
+  onClose,
+}: RecordatoriosModalProps) {
   const [recordatorios, setRecordatorios] = useState<Recordatorio[]>([]);
   const [idEdicion, setIdEdicion] = useState<number | null>(null);
   const [titulo, setTitulo] = useState("");
@@ -33,10 +42,14 @@ export default function RecordatoriosScreen() {
   }, []);
 
   useEffect(() => {
+    if (!visible) {
+      return;
+    }
+
     cargarRecordatorios().catch(() => {
       Alert.alert("Error", "No se pudieron cargar los recordatorios.");
     });
-  }, [cargarRecordatorios]);
+  }, [cargarRecordatorios, visible]);
 
   function limpiarFormulario() {
     setIdEdicion(null);
@@ -107,100 +120,125 @@ export default function RecordatoriosScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.tituloPantalla}>Mis recordatorios</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Título"
-        value={titulo}
-        onChangeText={setTitulo}
-      />
-
-      <TextInput
-        style={[styles.input, styles.descripcion]}
-        placeholder="Descripción"
-        value={descripcion}
-        onChangeText={setDescripcion}
-        multiline
-      />
-
-      <View style={styles.fila}>
-        <TextInput
-          style={[styles.input, styles.campoFecha]}
-          placeholder="AAAA-MM-DD"
-          value={fecha}
-          onChangeText={setFecha}
-        />
-
-        <TextInput
-          style={[styles.input, styles.campoHora]}
-          placeholder="HH:MM"
-          value={hora}
-          onChangeText={setHora}
-        />
-      </View>
-
-      <Pressable style={styles.botonGuardar} onPress={guardar}>
-        <Text style={styles.textoBoton}>
-          {idEdicion !== null ? "Actualizar" : "Crear recordatorio"}
-        </Text>
-      </Pressable>
-
-      {idEdicion !== null && (
-        <Pressable style={styles.botonCancelar} onPress={limpiarFormulario}>
-          <Text style={styles.textoCancelar}>Cancelar edición</Text>
-        </Pressable>
-      )}
-
-      <FlatList
-        data={recordatorios}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.lista}
-        ListEmptyComponent={
-          <Text style={styles.vacio}>No existen recordatorios.</Text>
-        }
-        renderItem={({ item }) => (
-          <View style={styles.tarjeta}>
-            <Text style={styles.tituloRecordatorio}>{item.titulo}</Text>
-            <Text>{item.descripcion}</Text>
-            <Text style={styles.fecha}>
-              {item.fecha} · {item.hora}
-            </Text>
-
-            <View style={styles.acciones}>
-              <Pressable
-                style={styles.botonEditar}
-                onPress={() => editar(item)}
-              >
-                <Text style={styles.textoBoton}>Editar</Text>
-              </Pressable>
-
-              <Pressable
-                style={styles.botonEliminar}
-                onPress={() => confirmarEliminacion(item.id)}
-              >
-                <Text style={styles.textoBoton}>Eliminar</Text>
-              </Pressable>
-            </View>
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+      <View style={styles.backdrop}>
+        <View style={styles.modalContenido}>
+          <View style={styles.header}>
+            <Text style={styles.tituloPantalla}>Mis recordatorios</Text>
+            <Pressable onPress={onClose} style={styles.botonCerrar}>
+              <Text style={styles.textoCerrar}>Cerrar</Text>
+            </Pressable>
           </View>
-        )}
-      />
-    </View>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Título"
+            value={titulo}
+            onChangeText={setTitulo}
+          />
+
+          <TextInput
+            style={[styles.input, styles.descripcion]}
+            placeholder="Descripción"
+            value={descripcion}
+            onChangeText={setDescripcion}
+            multiline
+          />
+
+          <View style={styles.fila}>
+            <TextInput
+              style={[styles.input, styles.campoFecha]}
+              placeholder="AAAA-MM-DD"
+              value={fecha}
+              onChangeText={setFecha}
+            />
+
+            <TextInput
+              style={[styles.input, styles.campoHora]}
+              placeholder="HH:MM"
+              value={hora}
+              onChangeText={setHora}
+            />
+          </View>
+
+          <Pressable style={styles.botonGuardar} onPress={guardar}>
+            <Text style={styles.textoBoton}>
+              {idEdicion !== null ? "Actualizar" : "Crear recordatorio"}
+            </Text>
+          </Pressable>
+
+          {idEdicion !== null && (
+            <Pressable style={styles.botonCancelar} onPress={limpiarFormulario}>
+              <Text style={styles.textoCancelar}>Cancelar edición</Text>
+            </Pressable>
+          )}
+
+          <FlatList
+            data={recordatorios}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.lista}
+            ListEmptyComponent={<Text style={styles.vacio}>No existen recordatorios.</Text>}
+            renderItem={({ item }) => (
+              <View style={styles.tarjeta}>
+                <Text style={styles.tituloRecordatorio}>{item.titulo}</Text>
+                <Text>{item.descripcion}</Text>
+                <Text style={styles.fecha}>{item.fecha} · {item.hora}</Text>
+
+                <View style={styles.acciones}>
+                  <Pressable style={styles.botonEditar} onPress={() => editar(item)}>
+                    <Text style={styles.textoBoton}>Editar</Text>
+                  </Pressable>
+
+                  <Pressable
+                    style={styles.botonEliminar}
+                    onPress={() => confirmarEliminacion(item.id)}
+                  >
+                    <Text style={styles.textoBoton}>Eliminar</Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
+          />
+        </View>
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  backdrop: {
     flex: 1,
-    padding: 18,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0, 0, 0, 0.45)",
+    padding: 12,
+  },
+  modalContenido: {
     backgroundColor: "#F5F5F8",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    maxHeight: "90%",
+    paddingHorizontal: 18,
+    paddingTop: 12,
+    paddingBottom: 20,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
   },
   tituloPantalla: {
     fontSize: 24,
     fontWeight: "700",
-    marginBottom: 16,
     color: "#3A145E",
+  },
+  botonCerrar: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  textoCerrar: {
+    color: "#8A1A72",
+    fontWeight: "700",
   },
   input: {
     backgroundColor: "#FFFFFF",
