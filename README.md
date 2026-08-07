@@ -162,7 +162,11 @@ Pruebas funcionales realizadas en Android:
 
 | Home | Candidatos |
 | :---: | :---: |
-| ![Home Completo](assets/capturas/HomeCompleto.jpeg) | ![Candidatos Completo]() |
+| ![Home Completo](assets/capturas/HomeCompleto.jpeg) | ![Candidatos Completo](assets/capturas/CandidatosCompleto.jpeg)  |
+
+| Estadísticas |  |
+| :---: | :---: |
+| ![Estadísticas Completo](assets/capturas/EstadísticasCompleto.jpeg) |  |
 
 ## Licencia
 
